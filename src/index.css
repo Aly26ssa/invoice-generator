@@ -22,34 +22,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --app-bg: #0f1419;
-    --app-surface: #1a222d;
-    --app-text: #cbd5e1;
-    --app-text-strong: #f1f5f9;
-    --app-text-muted: #94a3b8;
-    --app-border: #2d3a4a;
-    --app-accent: #3b82f6;
-    --app-accent-soft: #60a5fa;
-    --app-accent-ring: rgba(59, 130, 246, 0.25);
-    --app-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-    --app-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.45);
-  }
+:root[data-theme='dark'] {
+  --app-bg: #0f1419;
+  --app-surface: #1a222d;
+  --app-text: #cbd5e1;
+  --app-text-strong: #f1f5f9;
+  --app-text-muted: #94a3b8;
+  --app-border: #2d3a4a;
+  --app-accent: #3b82f6;
+  --app-accent-soft: #60a5fa;
+  --app-accent-ring: rgba(59, 130, 246, 0.25);
+  --app-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --app-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
 
-  .preview-sheet {
-    box-shadow: var(--app-shadow);
-  }
+:root[data-theme='dark'] .preview-sheet {
+  box-shadow: var(--app-shadow);
+}
 
-  .btn-icon:hover:not(:disabled) {
-    color: #fca5a5;
-    border-color: #7f1d1d;
-    background: #450a0a;
-  }
+:root[data-theme='dark'] .btn-icon:hover:not(:disabled) {
+  color: #fca5a5;
+  border-color: #7f1d1d;
+  background: #450a0a;
+}
 
-  .editor__details summary:hover {
-    background: rgba(255, 255, 255, 0.04);
-  }
+:root[data-theme='dark'] .editor__details summary:hover {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 #root {

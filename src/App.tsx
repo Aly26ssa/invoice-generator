@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { ExportBar } from './components/ExportBar'
 import { InvoiceEditor } from './components/InvoiceEditor'
 import { InvoiceTemplate } from './components/InvoiceTemplate'
+import { ThemeToggle } from './components/ThemeToggle'
 import type { InvoiceData } from './types/invoice'
 import './App.css'
 
@@ -49,10 +50,11 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="app-header no-print">
-        <div>
+        <div className="app-header__intro">
           <h1 className="app-title">Invoice generator</h1>
-          <p className="app-tagline">Edit details, pick the Ledger template, then export.</p>
+          <p className="app-tagline">Edit details, pick your preferred template, then export.</p>
         </div>
+        <ThemeToggle />
       </header>
 
       <div className="app-grid">
