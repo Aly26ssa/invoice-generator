@@ -211,7 +211,7 @@ export function InvoiceEditor({ data, setData }: Props) {
             >
               <option value="ledger">Ledger</option>
             </select>
-            <span className="field__hint">Single layout today; more styles can be added later.</span>
+            <span className="field__hint">Select the template layout.</span>
           </label>
         </div>
       </details>
