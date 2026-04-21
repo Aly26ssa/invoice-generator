@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import type { InvoiceData } from '../types/invoice'
-import { lineAmount, subtotal, taxAmount, total } from './invoiceMath'
+import { discountAmount, lineAmount, subtotal, taxAmount, total } from './invoiceMath'
 
 function downloadBlob(filename: string, blob: Blob) {
   const url = URL.createObjectURL(blob)
@@ -33,6 +33,9 @@ export function exportCsv(data: InvoiceData) {
     ]),
     [],
     ['Subtotal', '', '', String(subtotal(data))],
+    ...(data.discountPercent > 0
+      ? [[`Discount (${data.discountPercent}%)`, '', '', String(-discountAmount(data))]]
+      : []),
     [`Tax (${data.taxPercent}%)`, '', '', String(taxAmount(data))],
     ['Total', '', '', String(total(data))],
   ]

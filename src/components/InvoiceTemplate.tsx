@@ -1,5 +1,5 @@
 import type { InvoiceData } from '../types/invoice'
-import { lineAmount, subtotal, taxAmount, total } from '../utils/invoiceMath'
+import { discountAmount, lineAmount, subtotal, taxAmount, total } from '../utils/invoiceMath'
 
 const currencyFmt = (code: string, value: number) =>
   new Intl.NumberFormat(undefined, { style: 'currency', currency: code || 'USD' }).format(value)
@@ -11,6 +11,7 @@ interface Props {
 /** Single shipped style: Ledger — editorial header, structured grid. */
 export function InvoiceTemplate({ data }: Props) {
   const s = subtotal(data)
+  const disc = discountAmount(data)
   const t = taxAmount(data)
   const grand = total(data)
 
@@ -80,6 +81,12 @@ export function InvoiceTemplate({ data }: Props) {
             <dt>Subtotal</dt>
             <dd>{currencyFmt(data.currency, s)}</dd>
           </div>
+          {data.discountPercent > 0 && disc > 0 ? (
+            <div>
+              <dt>Discount ({data.discountPercent}%)</dt>
+              <dd>{currencyFmt(data.currency, -disc)}</dd>
+            </div>
+          ) : null}
           <div>
             <dt>Tax ({data.taxPercent}%)</dt>
             <dd>{currencyFmt(data.currency, t)}</dd>
