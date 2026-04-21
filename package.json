@@ -3,7 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/Aly26ssa/invoice-generator",
+  "homepage": "https://aly26ssa.github.io/invoice-generator/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aly26ssa/invoice-generator.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
