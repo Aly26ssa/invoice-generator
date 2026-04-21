@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -t -r https://github.com/Aly26ssa/invoice-generator.git",
+    "deploy:fresh": "node -e \"require('gh-pages').clean()\" && npm run deploy"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
