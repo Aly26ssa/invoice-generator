@@ -3,7 +3,7 @@ import { ExportBar } from './components/ExportBar'
 import { InvoiceEditor } from './components/InvoiceEditor'
 import { InvoiceTemplate } from './components/InvoiceTemplate'
 import { ThemeToggle } from './components/ThemeToggle'
-import type { InvoiceData } from './types/invoice'
+import { TEMPLATE_OPTIONS, type InvoiceData } from './types/invoice'
 import './App.css'
 
 function todayISO() {
@@ -55,7 +55,25 @@ export default function App() {
           <h1 className="app-title">Invoice generator</h1>
           <p className="app-tagline">Edit details, pick your preferred template, then export.</p>
         </div>
-        <ThemeToggle />
+        <div className="app-header__toolbar">
+          <label className="app-header__template">
+            <span>Templates</span>
+            <select
+              id="app-header-template"
+              value={data.templateId}
+              onChange={(e) =>
+                setData((d) => ({ ...d, templateId: e.target.value as InvoiceData['templateId'] }))
+              }
+            >
+              {TEMPLATE_OPTIONS.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="app-grid">

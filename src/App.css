@@ -22,11 +22,59 @@
   flex: 1 1 12rem;
 }
 
+.app-header__toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.app-header__template {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.app-header__template > span {
+  font-size: 0.8rem;
+  color: var(--app-text-muted);
+}
+
+.app-header__template select {
+  box-sizing: border-box;
+  min-width: 7.5rem;
+  max-width: 12rem;
+  width: 100%;
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  background: var(--app-bg);
+  color: var(--app-text-strong);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.app-header__template select:focus-visible {
+  outline: none;
+  border-color: var(--app-accent);
+  box-shadow: 0 0 0 3px var(--app-accent-ring);
+}
+
 .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  padding: 0.45rem 0.9rem;
+  padding: 0.5rem;
   border-radius: 8px;
   border: 1px solid var(--app-border);
   background: var(--app-surface);
@@ -37,6 +85,12 @@
     border-color 0.2s ease,
     background 0.2s ease,
     color 0.2s ease;
+}
+
+.theme-toggle__icon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .theme-toggle:hover {
@@ -52,7 +106,7 @@
 
 .app-title {
   margin: 0;
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-size: clamp(1.35rem, 2.5vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--app-text-strong);
