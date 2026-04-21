@@ -1,7 +1,8 @@
 import { useId } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
+import { INVOICE_CURRENCIES } from '../constants/currencies'
 import type { InvoiceData, LineItem } from '../types/invoice'
-import { subtotal, taxAmount, total } from '../utils/invoiceMath'
+import { discountAmount, subtotal, taxAmount, total } from '../utils/invoiceMath'
 
 function newLine(): LineItem {
   return { id: crypto.randomUUID(), description: '', quantity: 1, rate: 0 }
@@ -68,22 +69,12 @@ export function InvoiceEditor({ data, setData }: Props) {
               value={data.currency}
               onChange={(e) => setData((d) => ({ ...d, currency: e.target.value }))}
             >
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="CAD">CAD</option>
-              <option value="AUD">AUD</option>
+              {INVOICE_CURRENCIES.map((code) => (
+                <option key={code} value={code}>
+                  {code}
+                </option>
+              ))}
             </select>
-          </label>
-          <label className="field">
-            <span>Tax %</span>
-            <input
-              type="number"
-              min={0}
-              step={0.01}
-              value={data.taxPercent}
-              onChange={(e) => setData((d) => ({ ...d, taxPercent: Number(e.target.value) || 0 }))}
-            />
           </label>
         </div>
       </fieldset>
@@ -99,10 +90,11 @@ export function InvoiceEditor({ data, setData }: Props) {
             />
           </label>
           <label className="field">
-            <span>Client name</span>
+            <span>Your email</span>
             <input
-              value={data.toName}
-              onChange={(e) => setData((d) => ({ ...d, toName: e.target.value }))}
+              type="email"
+              value={data.fromEmail}
+              onChange={(e) => setData((d) => ({ ...d, fromEmail: e.target.value }))}
             />
           </label>
           <label className="field field--full">
@@ -114,19 +106,18 @@ export function InvoiceEditor({ data, setData }: Props) {
             />
           </label>
           <label className="field field--full">
+            <span>Client name</span>
+            <input
+              value={data.toName}
+              onChange={(e) => setData((d) => ({ ...d, toName: e.target.value }))}
+            />
+          </label>
+          <label className="field field--full">
             <span>Client address</span>
             <textarea
               rows={2}
               value={data.toAddress}
               onChange={(e) => setData((d) => ({ ...d, toAddress: e.target.value }))}
-            />
-          </label>
-          <label className="field">
-            <span>Your email</span>
-            <input
-              type="email"
-              value={data.fromEmail}
-              onChange={(e) => setData((d) => ({ ...d, fromEmail: e.target.value }))}
             />
           </label>
         </div>
@@ -183,9 +174,42 @@ export function InvoiceEditor({ data, setData }: Props) {
         <button type="button" className="btn-secondary add-line-btn" onClick={addLine}>
           Add line
         </button>
+        <div className="editor__grid editor__grid--two">
+          <label className="field">
+            <span>Tax %</span>
+            <input
+              type="number"
+              min={0}
+              step={0.01}
+              value={data.taxPercent}
+              onChange={(e) => setData((d) => ({ ...d, taxPercent: Number(e.target.value) || 0 }))}
+            />
+          </label>
+          <label className="field">
+            <span>Discount %</span>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              step={0.01}
+              value={data.discountPercent}
+              onChange={(e) => {
+                const n = Number(e.target.value) || 0
+                setData((d) => ({ ...d, discountPercent: Math.min(100, Math.max(0, n)) }))
+              }}
+            />
+          </label>
+        </div>
         <p className="editor__summary" aria-live="polite">
-          Subtotal {data.currency} {subtotal(data).toFixed(2)} · Tax {taxAmount(data).toFixed(2)} · Total{' '}
-          <strong>{total(data).toFixed(2)}</strong>
+          Subtotal {data.currency} {subtotal(data).toFixed(2)}
+          {data.discountPercent > 0 ? (
+            <>
+              {' '}
+              · Discount −{discountAmount(data).toFixed(2)}
+            </>
+          ) : null}
+          {' '}
+          · Tax {taxAmount(data).toFixed(2)} · Total <strong>{total(data).toFixed(2)}</strong>
         </p>
       </fieldset>
 

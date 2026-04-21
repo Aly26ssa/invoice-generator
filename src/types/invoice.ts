@@ -19,6 +19,7 @@ export interface InvoiceData {
   toName: string
   toAddress: string
   taxPercent: number
+  discountPercent: number
   notes: string
   lineItems: LineItem[]
 }

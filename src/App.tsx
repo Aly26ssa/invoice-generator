@@ -27,6 +27,7 @@ function initialData(): InvoiceData {
     toName: '',
     toAddress: '',
     taxPercent: 0,
+    discountPercent: 0,
     notes: '',
     lineItems: [
       { id: crypto.randomUUID(), description: 'Design consultation', quantity: 4, rate: 125 },
