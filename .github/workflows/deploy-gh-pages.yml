@@ -1,0 +1,41 @@
+# Build and push dist to the gh-pages branch on every push to main/development.
+# Pushing source to development does not update the site by itself — GitHub Pages
+# only serves what is on gh-pages (unless you switch Pages "source" to GitHub Actions).
+#
+# Repo setting: Settings → Actions → General → Workflow permissions →
+# "Read and write permissions" (so GITHUB_TOKEN can push to gh-pages).
+
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Push dist to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
