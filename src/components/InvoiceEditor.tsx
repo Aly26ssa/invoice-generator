@@ -1,4 +1,3 @@
-import { useId } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 import { INVOICE_CURRENCIES } from '../constants/currencies'
 import type { InvoiceData, LineItem } from '../types/invoice'
@@ -14,8 +13,6 @@ interface Props {
 }
 
 export function InvoiceEditor({ data, setData }: Props) {
-  const baseId = useId()
-
   const updateLine = (id: string, patch: Partial<LineItem>) => {
     setData((d) => ({
       ...d,
@@ -213,32 +210,19 @@ export function InvoiceEditor({ data, setData }: Props) {
         </p>
       </fieldset>
 
-      <details className="editor__details card-enter card-enter--delay-3">
-        <summary>Notes &amp; template</summary>
-        <div className="editor__details-body">
+      <fieldset className="editor__fieldset card-enter card-enter--delay-3">
+        <legend>Notes</legend>
+        <div className="editor__grid editor__grid--two">
           <label className="field field--full">
             <span>Notes (optional)</span>
             <textarea
-              rows={3}
+              rows={2}
               value={data.notes}
               onChange={(e) => setData((d) => ({ ...d, notes: e.target.value }))}
             />
           </label>
-          <label className="field field--full">
-            <span>Template</span>
-            <select
-              id={`${baseId}-template`}
-              value={data.templateId}
-              onChange={(e) =>
-                setData((d) => ({ ...d, templateId: e.target.value as InvoiceData['templateId'] }))
-              }
-            >
-              <option value="ledger">Ledger</option>
-            </select>
-            <span className="field__hint">Select the template layout.</span>
-          </label>
         </div>
-      </details>
+      </fieldset>
     </div>
   )
 }
