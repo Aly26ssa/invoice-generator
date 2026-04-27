@@ -43,6 +43,10 @@ export default function App() {
   const preview = useMemo(() => {
     switch (data.templateId) {
       case 'ledger':
+      case 'modern-sidebar':
+      case 'bold-header':
+      case 'compact':
+      case 'boxed-sections':
       default:
         return <InvoiceTemplate data={data} />
     }

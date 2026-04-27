@@ -1,4 +1,9 @@
-export type InvoiceTemplateId = 'ledger'
+export type InvoiceTemplateId =
+  | 'ledger'
+  | 'modern-sidebar'
+  | 'bold-header'
+  | 'compact'
+  | 'boxed-sections'
 
 export interface LineItem {
   id: string
@@ -29,5 +34,25 @@ export const TEMPLATE_OPTIONS: { id: InvoiceTemplateId; label: string; hint: str
     id: 'ledger',
     label: 'Ledger',
     hint: 'Clean two-column layout with a strong header band',
+  },
+  {
+    id: 'modern-sidebar',
+    label: 'Modern sidebar totals',
+    hint: 'Line items on the left with totals in a right-hand summary card',
+  },
+  {
+    id: 'bold-header',
+    label: 'Bold header bar',
+    hint: 'High-contrast header bar and prominent total due',
+  },
+  {
+    id: 'compact',
+    label: 'Compact',
+    hint: 'Tighter spacing for invoices with many line items',
+  },
+  {
+    id: 'boxed-sections',
+    label: 'Boxed sections',
+    hint: 'Parties, items, totals, and notes in clearly separated cards',
   },
 ]
