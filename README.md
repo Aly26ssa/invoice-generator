@@ -1,5 +1,5 @@
 # 🧾 Invoice Generator
-A web-based invoice generator app with multiple template types and printing options. Fill in your business details, client info, and line items to instantly generate a professional, printable invoice — no account required.
+A web-based invoice generator app with multiple template types and printing options. Fill in your business details, client info, and line items to instantly generate a professional, printable invoice with no account required.
  
 <img width="1537" height="921" alt="invoice-generator" src="https://github.com/user-attachments/assets/d195da51-4a65-49a6-bdf4-70098c7c5949" />
  
